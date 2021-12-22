@@ -1,3 +1,4 @@
+import { USER_COLLECTION } from '../constants'
 import { MongoHelper as sut } from './mongo-helper'
 
 describe('Mongo Helper', () => {
@@ -10,10 +11,10 @@ describe('Mongo Helper', () => {
   })
 
   test('Should reconnect if mongodb is down', async () => {
-    let accountCollection = await sut.getCollection('users')
+    let accountCollection = await sut.getCollection(USER_COLLECTION)
     expect(accountCollection).toBeTruthy()
     await sut.disconnect()
-    accountCollection = await sut.getCollection('users')
+    accountCollection = await sut.getCollection(USER_COLLECTION)
     expect(accountCollection).toBeTruthy()
   })
 })
