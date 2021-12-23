@@ -17,4 +17,12 @@ describe('Mongo Helper', () => {
     accountCollection = await sut.getCollection(USER_COLLECTION)
     expect(accountCollection).toBeTruthy()
   })
+
+  test('Should reconnect if mongodb if not got client', async () => {
+    const connect = jest.spyOn(sut, 'connect')
+    sut.client = null
+    let accountCollection = await sut.getCollection(USER_COLLECTION)
+    expect(connect).toHaveBeenCalled()
+    expect(accountCollection).toBeTruthy()
+  })
 })
